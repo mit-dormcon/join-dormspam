@@ -6,13 +6,15 @@
     import { addUserToList, delUserFromList } from "./moira";
 	import type { MoiraException } from "./types";
 	import type { Readable } from "svelte/store";
+	import HowToDormspam from "./HowToDormspam.svelte";
+	import MailmanInstructions from "./MailmanInstructions.svelte";
 
     const ticket = getContext<Readable<string>>('ticket');
 
     export let lists: string[];
 
     // TODO: for testing purposes, remove
-    // $: lists = [...lists, "gsc-clearance-hms-next-house"];
+    $: lists = [...lists, "gsc-clearance-hms-simmons-hall"];
 
     function getDorm(lists: string[]): Dorm | null {
         const tapAccessLists = lists.filter((name) => name.startsWith("gsc-clearance-"));
@@ -40,10 +42,6 @@
         return lists.includes(listName);
     }
 
-    function getMailmanLink(listName: string): string {
-        return "https://mailman.mit.edu/mailman/listinfo/" + listName;
-    }
-
     /// Allow showing content depending on the operation
     enum Operation { add, remove, none }
     let currentOperation: Operation = Operation.none;
@@ -58,23 +56,19 @@
         currentOperation = Operation.remove;
         currentPromise = delUserFromList($ticket, listName);
     }
-
 </script>
 
 {#if currentOperation === Operation.none}
     {#if dormInfo}
         {#if dormInfo.listType === ListType.mailman}
-        <!-- TODO: first pass at mailman. it can be better. iframe? redirect? guided screenshots? using admin password? etc -->
-            <p>
-                You are in <strong>{dormInfo.friendlyName}</strong>. To subscribe or unsubscribe from
-                dormspam, please go to <a href="{getMailmanLink(dormInfo.listName)}">{dormInfo.listName}.</a>
-            </p>
+            <MailmanInstructions {dormInfo}/>
         {:else}
             {#if isInList(dormInfo.listName)}
                 <p>
                     You are in <strong>{dormInfo.friendlyName}</strong>, and you are already
                     subscribed to <code>{dormInfo.listName}</code>.
                 </p>
+                <HowToDormspam {dormInfo} />
                 <button id="unsubscribe" on:click={() => unsubscribe(dormInfo.listName)}>
                     Unsubscribe me
                 </button>
@@ -115,6 +109,7 @@
         <p>
             {#if currentOperation === Operation.add}
                 <p>🎉 Successfully subscribed to {correspondingDormspamList}.</p>
+                <HowToDormspam {dormInfo} />
             {:else if currentOperation === Operation.remove}
                 <p>😥 Sorry to see you go. You have been unsuccessfully unsubscribed from {correspondingDormspamList}.</p>
                 <button id="subscribe" on:click={() => subscribe(correspondingDormspamList)}>I changed my mind, please re-subscribe me</button>
