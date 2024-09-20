@@ -12,7 +12,7 @@
     export let lists: string[];
 
     // TODO: for testing purposes, remove
-    $: lists = [...lists, "gsc-clearance-hms-next-house"];
+    // $: lists = [...lists, "gsc-clearance-hms-next-house"];
 
     function getDorm(lists: string[]): Dorm | null {
         const tapAccessLists = lists.filter((name) => name.startsWith("gsc-clearance-"));
@@ -28,6 +28,7 @@
     let dormInfo: Dorm | null = getDorm(lists);
     $: dormInfo = getDorm(lists);
 
+    // TODO: unused variable - consider using it or removing it
     let correspondingDormspamList = commonDormspamList;
     $: {
         if (dormInfo) {
@@ -74,7 +75,7 @@
                     You are in <strong>{dormInfo.friendlyName}</strong>, and you are already
                     subscribed to <code>{dormInfo.listName}</code>.
                 </p>
-                <button id="unsubscribe" on:click={() => unsubscribe(correspondingDormspamList)}>
+                <button id="unsubscribe" on:click={() => unsubscribe(dormInfo.listName)}>
                     Unsubscribe me
                 </button>
             {:else}
@@ -82,15 +83,29 @@
                     Since you are in <strong>{dormInfo.friendlyName}</strong>, to be on dormspam,
                     you should subscribe to <code>{dormInfo.listName}</code>.
                 </p>
-                <button id="subscribe" on:click={() => subscribe(correspondingDormspamList)}>
-                    Subscribe me to {correspondingDormspamList}
+                <button id="subscribe" on:click={() => subscribe(dormInfo.listName)}>
+                    Subscribe me to {dormInfo.listName}
                 </button>
             {/if}
         {/if}
     {:else}
+        <!-- TODO: do we really need this separate branch? -->
         <p>
-            We could not detect what dorm you are in. We can subscribe you to <code>{commonDormspamList}</code>
+            We could not detect what dorm you are in. We can subscribe you to <code>{commonDormspamList}</code>,
+            which is open to everyone, whether you are on a dorm or not. <!--If you are on a fraternity, consider
+            asking your frat leadership to add you to <code>frat-chat</code>.-->
         </p>
+        <!-- TODO: can DRY out the subscribe or unsubscribe button to prevent this code repetition -->
+        {#if isInList(commonDormspamList)}
+            <p>You are already subscribed, though. Do you want to unsubscribe?</p>
+            <button id="unsubscribe" on:click={() => unsubscribe(commonDormspamList)}>
+                Unsubscribe me from dormspam...
+            </button>
+        {:else}
+            <button id="subscribe" on:click={() => subscribe(commonDormspamList)}>
+                Subscribe me to dormspam!
+            </button>
+        {/if}
     {/if}
 {:else}
     {#await currentPromise}
