@@ -30,7 +30,6 @@
     let dormInfo: Dorm | null = getDorm(lists);
     $: dormInfo = getDorm(lists);
 
-    // TODO: unused variable - consider using it or removing it
     let correspondingDormspamList = commonDormspamList;
     $: {
         if (dormInfo) {
