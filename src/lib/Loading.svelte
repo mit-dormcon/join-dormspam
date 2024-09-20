@@ -1,1 +1,1 @@
-<img src="/join-dormspam/pacman.gif" alt="Loading...">
+<img src="/pacman.gif" alt="Loading...">

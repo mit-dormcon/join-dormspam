@@ -12,7 +12,7 @@ const config = {
 		adapter: adapter({
 			fallback: 'index.html'
 		}),
-		paths: {base: '/join-dormspam'},
+		//paths: {base: '/join-dormspam'},
 	}
 };
 
