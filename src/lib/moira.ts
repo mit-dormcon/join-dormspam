@@ -26,7 +26,12 @@ export async function makeQuery({ method, path, ticket, params }: QueryOptions):
 		},
 		method
 	});
-	const json = await response.json();
+	const text = await response.text();
+	if (text === "success") {
+		// whoops I think I did bad API design here, this is not json...
+		return text;
+	}
+	const json = JSON.parse(text);
 	if (response.status !== 200) {
 		// TODO check is instance of MoiraException?
 		throw json;

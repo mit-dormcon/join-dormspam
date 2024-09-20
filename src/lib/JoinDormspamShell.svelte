@@ -12,6 +12,7 @@
 </script>
 
 {#await listsPromise}
+    <p>Getting information from Moira...</p>
     <p>
         <Loading/>
     </p>
