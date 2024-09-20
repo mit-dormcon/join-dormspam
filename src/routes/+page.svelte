@@ -4,7 +4,7 @@
 	import { encodeTicket, getUsername, loginWebathena } from '$lib/webathena';
 	import { derived, writable } from 'svelte/store';
 	import AboutDormspam from '$lib/AboutDormspam.svelte';
-	import JoinDormspam from '$lib/JoinDormspam.svelte';
+	import JoinDormspamShell from '$lib/JoinDormspamShell.svelte';
 
 	const webathena = writable<any>(null);
 	setContext('webathena', webathena);
@@ -25,6 +25,8 @@
 	<title>Join dormspam</title>
 </svelte:head>
 
+<p>THIS PAGE IS UNDER CONSTRUCTION...</p>
+
 <AboutDormspam/>
 
 <p></p>
@@ -34,7 +36,7 @@
         <button id="login" on:click={login}>Login with Webathena</button>
     </p>
 {:else}
-    <JoinDormspam/>
+    <JoinDormspamShell/>
 {/if}
 
 
