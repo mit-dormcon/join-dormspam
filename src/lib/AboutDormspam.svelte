@@ -1,5 +1,5 @@
 <h1>
-	<img src="/spam.jpg" alt="spam (the food)" id="spam" />
+	<img src="/join-dormspam/spam.jpg" alt="spam (the food)" id="spam" />
 	Join dormspam
 </h1>
 
