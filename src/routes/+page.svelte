@@ -1,10 +1,10 @@
 <script lang="ts">
 	import '$lib/simple.css';
-	import Loading from '$lib/Loading.svelte';
 	import { setContext } from 'svelte';
 	import { encodeTicket, getUsername, loginWebathena } from '$lib/webathena';
 	import { derived, writable } from 'svelte/store';
 	import AboutDormspam from '$lib/AboutDormspam.svelte';
+	import JoinDormspam from '$lib/JoinDormspam.svelte';
 
 	const webathena = writable<any>(null);
 	setContext('webathena', webathena);
@@ -34,7 +34,7 @@
         <button id="login" on:click={login}>Login with Webathena</button>
     </p>
 {:else}
-    You are logged in as <strong>{$username}</strong>.
+    <JoinDormspam/>
 {/if}
 
 
