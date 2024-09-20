@@ -8,9 +8,8 @@
 <details>
 	<summary> What is this? (click for more info) </summary>
 
-	<ul>
-		<li>insert blurb about dormspam</li>
-	</ul>
+	<!-- copied from how to dormspam -->
+	<p>Dormspam is the act of emailing the social lists of MIT dorms and the IFC, and is used for advertising events, club announcements, surveys, and more.</p>
 
 	<strong>Pros</strong>
 	<ul>
