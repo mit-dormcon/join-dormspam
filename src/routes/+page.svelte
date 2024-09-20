@@ -25,8 +25,6 @@
 	<title>Join dormspam</title>
 </svelte:head>
 
-<p>THIS PAGE IS UNDER CONSTRUCTION...</p>
-
 <AboutDormspam/>
 
 <p></p>
