@@ -14,7 +14,7 @@
     export let lists: string[];
 
     // TODO: for testing purposes, remove
-    // $: lists = [...lists, "gsc-clearance-hms-baker-house"];
+    // $: lists = [...lists, "gsc-clearance-hms-east-campus"];
 
     function getDorm(lists: string[]): Dorm | null {
         const tapAccessLists = lists.filter((name) => name.startsWith("gsc-clearance-"));
@@ -55,9 +55,41 @@
         currentOperation = Operation.remove;
         currentPromise = delUserFromList($ticket, listName);
     }
+
+    function getSubscribedDormspamLists(lists: string[]) {
+        const listsSet = new Set(lists);
+        const subscribedDormspamLists: string[] = [];
+        const dormspamListNames = [...dormspamLists.values()].map((dorm) => dorm.listName);
+        for (const listName of dormspamListNames) {
+            if (listsSet.has(listName)) {
+                subscribedDormspamLists.push(listName);
+            }
+        }
+        return subscribedDormspamLists;
+    }
+
+    $: subscribedDormspamLists = getSubscribedDormspamLists(lists);
+    $: subscribedDormspamListsOtherDorms = subscribedDormspamLists.filter((name) => name !== correspondingDormspamList);
 </script>
 
 {#if currentOperation === Operation.none}
+    {#if subscribedDormspamListsOtherDorms.length > 0}
+        <p class="notice">
+            <strong>NOTE:</strong> You are already in the dormspam lists of
+            {#if subscribedDormspamListsOtherDorms.length === 1}
+            another dorm: 
+            {:else}
+            other dorms: 
+            {/if}
+            <!-- Svelte is nice, I forgot you could just add @html -->
+            {@html subscribedDormspamListsOtherDorms.map((name) => `<code>${name}</code>`).join(", ")}.
+            You can unsubscribe from them using <a href="https://groups.mit.edu/webmoira/">WebMoira</a>.
+            Everything that follows below is about subscribing or unsubscribing to your own dorm's
+            dormspam list, since this application is mostly designed for people who are joining
+            dormspam for the first time.
+        </p>
+    {/if}
+
     {#if dormInfo}
         {#if dormInfo.listType === ListType.mailman}
             <MailmanInstructions {dormInfo}/>
@@ -85,7 +117,7 @@
         <!-- TODO: do we really need this separate branch? -->
         <p>
             We could not detect what dorm you are in. We can subscribe you to <code>{commonDormspamList}</code>,
-            which is open to everyone, whether you are on a dorm or not. <!--If you are on a fraternity, consider
+            which is open to everyone, whether you are in a dorm or not. <!--If you are on a fraternity, consider
             asking your frat leadership to add you to <code>frat-chat</code>.-->
         </p>
         <!-- TODO: can DRY out the subscribe or unsubscribe button to prevent this code repetition -->

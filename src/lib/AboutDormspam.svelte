@@ -13,12 +13,16 @@
 
 	<strong>Pros</strong>
 	<ul>
-		<li>so true bestie</li>
+		<li>Some dorms' dormspam lists also double as the intra-dorm communication, so you also get to hear
+			about what is happening in your own dorm.</li>
+		<li>Get to hear about events going on.</li>
+		<li>Dormspam is great. TODO get the text to put here from Jordan and Ananda.</li>
 	</ul>
 
 	<strong>Cons</strong>
 	<ul>
-		<li>so false worstie</li>
+		<li>It is very spammy, but you can <a href="https://sites.mit.edu/how-to-dormspam/filter/" target="_blank">easily filter</a> it though.</li>
+		<li>Sometimes there are flame wars.</li>
 	</ul>
 </details>
 
