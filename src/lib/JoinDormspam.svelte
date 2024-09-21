@@ -31,10 +31,8 @@
     $: dormInfo = getDorm(lists);
 
     let correspondingDormspamList = commonDormspamList;
-    $: {
-        if (dormInfo) {
-            correspondingDormspamList = dormInfo.listName;
-        }
+    $: if (dormInfo) {
+        correspondingDormspamList = dormInfo.listName;
     }
 
     function isInList(listName: string): boolean {
