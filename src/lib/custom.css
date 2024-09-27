@@ -1,0 +1,35 @@
+/* Global variables. */
+:root,
+::backdrop {
+	/* Default (light) theme */
+	--bg: #fff;
+	--accent-bg: #f5f7ff;
+	--text: #212121;
+	--text-light: #585858;
+	--border: #898ea4;
+	--accent: #397c9e;
+	--accent-hover: #1d3f51;
+	--accent-text: var(--bg);
+	--code: #d81b60;
+	--preformatted: #444;
+	--marked: #ffdd33;
+	--disabled: #efefef;
+}
+
+/* Dark theme */
+@media (prefers-color-scheme: dark) {
+	:root,
+	::backdrop {
+		color-scheme: dark;
+		--bg: #212121;
+		--accent-bg: #2b2b2b;
+		--text: #dcdcdc;
+		--text-light: #ababab;
+		--accent: #4d91b4;
+		--accent-hover: #6dcdff;
+		--accent-text: var(--bg);
+		--code: #f06292;
+		--preformatted: #ccc;
+		--disabled: #111;
+	}
+}

@@ -1,9 +1,13 @@
 <script lang="ts">
 	import '$lib/simple.css';
+	import '$lib/custom.css';
+
 	import { setContext } from 'svelte';
 	import { encodeTicket, getUsername, loginWebathena } from '$lib/webathena';
 	import { derived, writable } from 'svelte/store';
-	import AboutDormspam from '$lib/AboutDormspam.svelte';
+
+	import Header from '$lib/Header.svelte';
+	import WhatIsThis from '$lib/WhatIsThis.svelte';
 	import JoinDormspamShell from '$lib/JoinDormspamShell.svelte';
 
 	const webathena = writable<any>(null);
@@ -18,23 +22,21 @@
 	async function login() {
 		$webathena = await loginWebathena();
 	}
-
 </script>
 
 <svelte:head>
 	<title>Join dormspam</title>
 </svelte:head>
 
-<AboutDormspam/>
+<Header />
 
-<p></p>
-
-{#if $webathena === null}
-    <p>
-        <button id="login" on:click={login}>Login with Webathena</button>
-    </p>
-{:else}
-    <JoinDormspamShell/>
-{/if}
-
-
+<main>
+	<WhatIsThis />
+	{#if $webathena === null}
+		<p>
+			<button id="login" on:click={login}>Login with Webathena</button>
+		</p>
+	{:else}
+		<JoinDormspamShell />
+	{/if}
+</main>
