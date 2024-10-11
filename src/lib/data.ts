@@ -1,7 +1,7 @@
 export enum ListType { mailman, moira }
 
 // List for people off-campus, etc
-export const commonDormspamList = "random-hall-dormspam";
+export const commonDormspamList = "dormspam-catch-all";
 
 export type Dorm = {
     listName: string;

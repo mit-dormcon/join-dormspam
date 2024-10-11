@@ -114,7 +114,7 @@
     {:else}
         <!-- TODO: do we really need this separate branch? -->
         <p>
-            We could not detect what dorm you are in. We can subscribe you to <code>{commonDormspamList}</code>,
+            We could not detect what dorm you are in. We can subscribe you to <code>random-hall-dormspam</code>,
             which is open to everyone, whether you are in a dorm or not. <!--If you are on a fraternity, consider
             asking your frat leadership to add you to <code>frat-chat</code>.-->
         </p>
