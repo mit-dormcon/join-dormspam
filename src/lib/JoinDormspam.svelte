@@ -10,6 +10,7 @@
 	import MailmanInstructions from "./MailmanInstructions.svelte";
 
     const ticket = getContext<Readable<string>>('ticket');
+    const username = getContext<Readable<string>>('username');
 
     export let lists: string[];
 
@@ -47,11 +48,11 @@
     /// Define the operations
     function subscribe(listName: string) {
         currentOperation = Operation.add;
-        currentPromise = addUserToList($ticket, listName);
+        currentPromise = addUserToList($ticket, listName, $username);
     }
     function unsubscribe(listName: string) {
         currentOperation = Operation.remove;
-        currentPromise = delUserFromList($ticket, listName);
+        currentPromise = delUserFromList($ticket, listName, $username);
     }
 
     function getSubscribedDormspamLists(lists: string[]) {

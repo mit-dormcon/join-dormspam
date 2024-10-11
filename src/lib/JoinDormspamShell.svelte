@@ -8,7 +8,7 @@
     const ticket = getContext<Readable<string>>('ticket');
     const username = getContext<Readable<string>>('username');
 
-    const listsPromise = getLists($ticket);
+    const listsPromise = getLists($ticket, $username);
 </script>
 
 {#await listsPromise}
