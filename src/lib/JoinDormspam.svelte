@@ -135,15 +135,17 @@
         <p>Asking Moira to do the thing...</p>
         <Loading/>
     {:then}
-        <!-- Right now, dormspam-catch-all is a sublist of random-hall-dormspam so we want to 
-                report the name of the parent list to users. -->
-        {@const listDisplayName = commonDormspamList ? "random-hall-dormspam" : correspondingDormspamList}
         <p>
             {#if currentOperation === Operation.add}
-                <p>🎉 Successfully subscribed to {listDisplayName}.</p>
+                <p>🎉 Successfully subscribed to
+                    <!-- Right now, dormspam-catch-all is a sublist of random-hall-dormspam so we want to 
+                         report the name of the parent list to users. -->
+                    {correspondingDormspamList === commonDormspamList ? "random-hall-dormspam" : correspondingDormspamList}.</p>
                 <HowToDormspam {dormInfo} />
             {:else if currentOperation === Operation.remove}
-                <p>😥 Sorry to see you go. You have been unsuccessfully unsubscribed from {listDisplayName}.</p>
+                <p>😥 Sorry to see you go. You have been unsuccessfully unsubscribed from
+                    <!-- TODO dry this logic - trying to @const was leading to a strange error and im eepy -->
+                    {correspondingDormspamList === commonDormspamList ? "random-hall-dormspam" : correspondingDormspamList}.</p>
                 <button id="subscribe" on:click={() => subscribe(correspondingDormspamList)}>I changed my mind, please re-subscribe me</button>
             {/if}
         </p>
