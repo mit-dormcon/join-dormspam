@@ -22,7 +22,8 @@ export async function makeQuery({ method, path, ticket, params }: QueryOptions):
 	}
 	const response = await fetch(`${PUBLIC_MOIRA_API}${path}${param_path}`, {
 		headers: {
-			Authorization: `webathena ${ticket}`
+			Authorization: `webathena ${ticket}`,
+			modwith: "dormspam"
 		},
 		method
 	});
