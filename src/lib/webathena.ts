@@ -49,7 +49,7 @@ export function encodeMoiraTicket(webathenaSessions: any) {
 }
 
 export function encodeEmailTicket(webathenaSessions: any) {
-	const session = webathenaSessions[0];
+	const session = webathenaSessions[1];
 	return btoa(JSON.stringify(session));
 }
 

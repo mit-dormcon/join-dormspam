@@ -8,6 +8,7 @@
 	import type { Readable } from "svelte/store";
 	import HowToDormspam from "./HowToDormspam.svelte";
 	import MailmanInstructions from "./MailmanInstructions.svelte";
+	import MailmanJoin from "./MailmanJoin.svelte";
 
     const ticket = getContext<Readable<string>>('ticket');
     const username = getContext<Readable<string>>('username');
@@ -15,7 +16,7 @@
     export let lists: string[];
 
     // TODO: for testing purposes, remove
-    // $: lists = [...lists, "gsc-clearance-hms-east-campus"];
+    $: lists = [...lists, "gsc-clearance-hms-new-vassar"];
 
     function getDorm(lists: string[]): Dorm | null {
         const tapAccessLists = lists.filter((name) => name.startsWith("gsc-clearance-"));
@@ -91,7 +92,7 @@
 
     {#if dormInfo}
         {#if dormInfo.listType === ListType.mailman}
-            <MailmanInstructions {dormInfo}/>
+            <MailmanJoin {dormInfo}/>
         {:else}
             {#if isInList(dormInfo.listName)}
                 <p>

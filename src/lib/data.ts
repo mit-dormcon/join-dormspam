@@ -68,3 +68,13 @@ export const dormspamLists: Map<string, Dorm> = new Map([
         listType: ListType.mailman,
     }]
 ]);
+
+// TODO: ask during the dormcon GBM for dorms to change settings for auto-subscribe,
+// and to get the list of "requires approval to subscribe" lists
+
+/// Mailman lists that need no further action after requesting a subscription
+export const mailmanAutoSubscribe = ["sponge-talk"];
+
+/// Mailman lists that require approval from a moderator either way
+// TODO: test all of them and see which ones require approval
+export const mailmanRequiresApproval = ["baker-forum"]
