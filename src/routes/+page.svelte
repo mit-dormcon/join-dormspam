@@ -1,7 +1,7 @@
 <script lang="ts">
 	import '$lib/simple.css';
 	import { setContext } from 'svelte';
-	import { encodeTicket, getUsername, loginWebathena } from '$lib/webathena';
+	import { encodeEmailTicket, encodeMoiraTicket, getUsername, loginWebathena } from '$lib/webathena';
 	import { derived, writable } from 'svelte/store';
 	import AboutDormspam from '$lib/AboutDormspam.svelte';
 	import JoinDormspamShell from '$lib/JoinDormspamShell.svelte';
@@ -9,8 +9,11 @@
 	const webathena = writable<any>(null);
 	setContext('webathena', webathena);
 
-	const ticket = derived(webathena, encodeTicket);
+	const ticket = derived(webathena, encodeMoiraTicket);
 	setContext('ticket', ticket);
+
+	const emailTicket = derived(webathena, encodeEmailTicket);
+	setContext('emailTicket', emailTicket);
 
 	const username = derived(webathena, getUsername);
 	setContext('username', username);
