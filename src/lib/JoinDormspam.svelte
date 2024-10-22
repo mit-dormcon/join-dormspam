@@ -15,7 +15,7 @@
     export let lists: string[];
 
     // TODO: for testing purposes, remove
-    $: lists = [...lists, "gsc-clearance-hms-new-vassar"];
+    // $: lists = [...lists, "gsc-clearance-hms-new-vassar"];
 
     function getDorm(lists: string[]): Dorm | null {
         const tapAccessLists = lists.filter((name) => name.startsWith("gsc-clearance-"));
