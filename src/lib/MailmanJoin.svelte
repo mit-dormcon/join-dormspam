@@ -18,6 +18,8 @@
     function subscribe(listName: string) {
         currentPromise = requestSubscription($emailTicket, listName);
     }
+
+    let mailmanConfirmation: boolean = false;
 </script>
 
 {#if currentPromise === null}
@@ -32,26 +34,37 @@
     {:then}
         {#if mailmanAutoSubscribe.includes(dormInfo.listName)}
             <p>🎉 Successfully subscribed to {dormInfo.listName}!</p>
+            <HowToDormspam {dormInfo} />
         {:else if mailmanRequiresApproval.includes(dormInfo.listName)}
             <p>
                 🎉 You are almost subscribed to {dormInfo.listName}!
                 Your request will be reviewed by the {dormInfo.friendlyName} exec.
             </p>
+            <HowToDormspam {dormInfo} />
         {:else}
-            <p>
-                Almost done! You will receive an email from {dormInfo.listName}-request@mit.edu
-                with a subject that begins with "confirm". Please click on the link inside it.
-                <strong>You are not subscribed yet until you confirm your subscription.</strong>
-                <!-- TODO: consider bringing back the checkbox from MailmanInstructions.svelte -->
-            </p>
+            {#if mailmanConfirmation}
+                <HowToDormspam {dormInfo} />
+            {:else}
+                <p>
+                    Almost done! You will receive an email from {dormInfo.listName}-request@mit.edu
+                    with a subject that begins with "confirm". Please click on the link inside it.
+                    <strong>You are not subscribed yet until you confirm your subscription.</strong>
+                </p>
+                <p>
+                    <label>
+                        <input type="checkbox" bind:checked={mailmanConfirmation}>
+                        I have finalized my subscription by following the instructions in my email.
+                    </label>
+                </p>
+            {/if}
         {/if}
-        <HowToDormspam {dormInfo} />
-        <p>
-            You can also email {dormInfo.listName}-owner@mit.edu with any questions (such as help subscribing 
-            or unsubscribing). The website <a href={mailmanLink} target="_blank">{mailmanLink}</a> should
-            also let you subscribe or unsubscribe directly.
-        </p>
     {:catch error}
         <Error {error}/>
     {/await}
 {/if}
+<hr/>
+<p>
+    You can also email {dormInfo.listName}-owner@mit.edu with any questions (such as help subscribing 
+    or unsubscribing). The website <a href={mailmanLink} target="_blank">{mailmanLink}</a> should
+    also let you subscribe or unsubscribe directly.
+</p>

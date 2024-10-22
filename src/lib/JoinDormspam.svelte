@@ -7,7 +7,6 @@
 	import type { MoiraException } from "./types";
 	import type { Readable } from "svelte/store";
 	import HowToDormspam from "./HowToDormspam.svelte";
-	import MailmanInstructions from "./MailmanInstructions.svelte";
 	import MailmanJoin from "./MailmanJoin.svelte";
 
     const ticket = getContext<Readable<string>>('ticket');
