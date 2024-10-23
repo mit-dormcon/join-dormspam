@@ -28,7 +28,7 @@ export const dormspamLists: Map<string, Dorm> = new Map([
 		{
 			friendlyName: 'BC',
 			listName: 'bc-talk',
-			listType: ListType.mailman
+			listType: ListType.moira
 		}
 	],
 	[
