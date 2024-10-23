@@ -45,7 +45,7 @@
 		remove: 1,
 		none: 2
 	} as const;
-	let currentOperation: number = $state(Operation.none);
+	let currentOperation: (typeof Operation)[keyof typeof Operation] = $state(Operation.none);
 	let currentPromise: null | Promise<'success' | MoiraException> = $state(null);
 
 	/// Define the operations

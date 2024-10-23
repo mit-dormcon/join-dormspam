@@ -8,7 +8,7 @@ export const commonDormspamList = 'dormspam-catch-all';
 
 export type Dorm = {
 	listName: string;
-	listType: number;
+	listType: (typeof ListType)[keyof typeof ListType];
 	friendlyName: string;
 };
 
