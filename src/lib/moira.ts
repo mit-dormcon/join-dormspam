@@ -11,7 +11,7 @@ type QueryOptions = {
 	params?: Map<string, string> | undefined;
 };
 
-export async function makeQuery({ method, path, ticket, params }: QueryOptions): Promise<any> {
+export async function makeQuery({ method, path, ticket, params }: QueryOptions): Promise<unknown> {
 	let param_path = '';
 	if (params !== undefined) {
 		param_path = '?';
@@ -23,19 +23,19 @@ export async function makeQuery({ method, path, ticket, params }: QueryOptions):
 	const response = await fetch(`${PUBLIC_MOIRA_API}${path}${param_path}`, {
 		headers: {
 			Authorization: `webathena ${ticket}`,
-			modwith: "dormspam"
+			modwith: 'dormspam'
 		},
 		method
 	});
 	const text = await response.text();
-	if (text === "success") {
+	if (text === 'success') {
 		// whoops I think I did bad API design here, this is not json...
 		return text;
 	}
 	const json = JSON.parse(text);
 	if (response.status !== 200) {
 		// TODO check is instance of MoiraException?
-		throw json;
+		throw json as MoiraException;
 	}
 	return json;
 }
@@ -60,7 +60,7 @@ export async function getLists(
 	include_properties?: boolean,
 	recurse?: boolean
 ): Promise<string[]> {
-	const lists: string[] = await makeQuery({
+	const lists = await makeQuery({
 		method: 'GET',
 		path: `/users/${user}/lists`,
 		ticket,
@@ -71,8 +71,13 @@ export async function getLists(
 			])
 		)
 	});
-	lists.sort();
-	return lists;
+
+	if (Array.isArray(lists) && lists.every((item) => typeof item == 'string')) {
+		lists.sort();
+		return lists;
+	}
+
+	return [];
 }
 
 export async function addUserToList(
@@ -81,12 +86,12 @@ export async function addUserToList(
 	member = 'me',
 	type: MemberType = 'user'
 ): Promise<'success' | MoiraException> {
-	return await makeQuery({
+	return (await makeQuery({
 		method: 'PUT',
 		path: `/lists/${list}/members/${member}`,
 		ticket,
 		params: makeParamsList(new Map([['type', type]]))
-	});
+	})) as 'success' | MoiraException;
 }
 
 export async function delUserFromList(
@@ -95,10 +100,10 @@ export async function delUserFromList(
 	member = 'me',
 	type: MemberType = 'user'
 ): Promise<'success' | MoiraException> {
-	return await makeQuery({
+	return (await makeQuery({
 		method: 'DELETE',
 		path: `/lists/${list}/members/${member}`,
 		ticket,
 		params: makeParamsList(new Map([['type', type]]))
-	});
+	})) as 'success' | MoiraException;
 }

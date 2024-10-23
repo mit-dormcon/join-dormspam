@@ -6,8 +6,12 @@ friendly error message
 <script lang="ts">
 	import type { MoiraException } from '$lib/types';
 
-	export let noResultsError: string = 'There is nothing here.';
-	export let error: MoiraException;
+	interface Props {
+		noResultsError?: string;
+		error: MoiraException;
+	}
+
+	let { noResultsError = 'There is nothing here.', error }: Props = $props();
 </script>
 
 {#if error.name === 'MR_PERM'}

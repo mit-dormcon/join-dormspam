@@ -20,4 +20,3 @@ export type MoiraException = {
 };
 
 export type MemberType = 'user' | 'email' | 'list' | 'kerberos';
-

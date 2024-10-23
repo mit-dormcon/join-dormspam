@@ -1,12 +1,18 @@
 <script lang="ts">
 	import '$lib/simple.css';
 	import { setContext } from 'svelte';
-	import { encodeEmailTicket, encodeMoiraTicket, getUsername, loginWebathena } from '$lib/webathena';
+	import {
+		encodeEmailTicket,
+		encodeMoiraTicket,
+		getUsername,
+		loginWebathena,
+		type WebAthenaSession
+	} from '$lib/webathena';
 	import { derived, writable } from 'svelte/store';
 	import AboutDormspam from '$lib/AboutDormspam.svelte';
 	import JoinDormspamShell from '$lib/JoinDormspamShell.svelte';
 
-	const webathena = writable<any>(null);
+	const webathena = writable<WebAthenaSession[] | null>(null);
 	setContext('webathena', webathena);
 
 	const ticket = derived(webathena, encodeMoiraTicket);
@@ -19,25 +25,22 @@
 	setContext('username', username);
 
 	async function login() {
-		$webathena = await loginWebathena();
+		$webathena = (await loginWebathena()) as WebAthenaSession[];
 	}
-
 </script>
 
 <svelte:head>
 	<title>Join dormspam</title>
 </svelte:head>
 
-<AboutDormspam/>
+<AboutDormspam />
 
 <p></p>
 
 {#if $webathena === null}
-    <p>
-        <button id="login" on:click={login}>Login with Webathena</button>
-    </p>
+	<p>
+		<button id="login" onclick={login}>Login with Webathena</button>
+	</p>
 {:else}
-    <JoinDormspamShell/>
+	<JoinDormspamShell />
 {/if}
-
-
