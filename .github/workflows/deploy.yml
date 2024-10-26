@@ -1,5 +1,4 @@
-# Copied from https://github.com/josecelano/svelte-deploy-with-github-actions/blob/master/.github/workflows/deploy.yml
-# Another reference: https://github.com/mit-dormcon/website/blob/main/.github/workflows/deploy.yml
+# Reference: https://github.com/mit-dormcon/website/blob/main/.github/workflows/deploy.yml
 
 name: Deploy to GitHub Pages
 
@@ -11,20 +10,40 @@ on:
 
 jobs:
   build:
+    name: Build Svelte
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+      - uses: actions/setup-node@v4
       - name: Install and Build
         run: |
           npm install
           npm run build
         env:
           PUBLIC_MOIRA_API: "https://moira-api.mit.edu"
-          
-      - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@4.1.5
+      - name: Upload Build Artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          branch: gh-pages
-          folder: build
+            path: build
+
+  deploy:
+      name: Deploy to GitHub Pages
+      needs: build
+
+      # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
+      permissions:
+          pages: write # to deploy to Pages
+          id-token: write # to verify the deployment originates from an appropriate source
+
+      # Deploy to the github-pages environment
+      environment:
+          name: github-pages
+          url: ${{ steps.deployment.outputs.page_url }}
+
+      runs-on: ubuntu-latest
+      steps:
+          - name: Deploy to GitHub Pages
+            id: deployment
+            uses: actions/deploy-pages@v4
