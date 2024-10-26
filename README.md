@@ -1,18 +1,10 @@
-# create-svelte
+# join-dormspam.mit.edu
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).
+The easiest way to subscribe to dormspam.
 
-## Creating a project
+## .env
 
-If you're seeing this, you've probably already done this step. Congrats!
-
-```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+Before trying to develop, create a file called `.env` with the contents `PUBLIC_MOIRA_API="https://moira-api.mit.edu"`.
 
 ## Developing
 
