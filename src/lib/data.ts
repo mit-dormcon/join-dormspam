@@ -113,4 +113,4 @@ export const mailmanAutoSubscribe = ['sponge-talk'];
 
 /// Mailman lists that require approval from a moderator either way
 // TODO: test all of them and see which ones require approval
-export const mailmanRequiresApproval = ['baker-forum'];
+export const mailmanRequiresApproval = ['baker-forum', 'maseeh-talk'];
