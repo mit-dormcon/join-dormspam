@@ -1,14 +1,14 @@
-export const ListType = {
-	mailman: 0,
-	moira: 1
-} as const;
+export enum ListType {
+	mailman,
+	moira
+}
 
 // List for people off-campus, etc
 export const commonDormspamList = 'dormspam-catch-all';
 
 export type Dorm = {
 	listName: string;
-	listType: (typeof ListType)[keyof typeof ListType];
+	listType: ListType;
 	friendlyName: string;
 };
 

@@ -40,12 +40,12 @@
 	}
 
 	/// Allow showing content depending on the operation
-	const Operation = {
-		add: 0,
-		remove: 1,
-		none: 2
-	} as const;
-	let currentOperation: (typeof Operation)[keyof typeof Operation] = $state(Operation.none);
+	enum Operation {
+		add,
+		remove,
+		none
+	}
+	let currentOperation: Operation = $state(Operation.none);
 	let currentPromise: null | Promise<'success' | MoiraException> = $state(null);
 
 	/// Define the operations
