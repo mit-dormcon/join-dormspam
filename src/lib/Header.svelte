@@ -7,6 +7,10 @@
 </header>
 
 <style>
+	header {
+		padding-top: 1rem;
+		padding-bottom: 1rem;
+	}
 	#spam {
 		max-height: 3rem;
 		vertical-align: middle;
