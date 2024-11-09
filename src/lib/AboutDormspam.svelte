@@ -1,10 +1,3 @@
-<h1>
-	<img src="/spam.jpg" alt="spam (the food)" id="spam" />
-	Join dormspam
-</h1>
-
-<p>Do you want to stay informed about what happens on campus?</p>
-
 <details>
 	<summary> Click for frequently asked questions </summary>
 

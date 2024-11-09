@@ -1,0 +1,3 @@
+<footer>
+	<a href="https://accessibility.mit.edu"> Accessibility </a>
+</footer>

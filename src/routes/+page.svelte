@@ -9,8 +9,10 @@
 		type WebAthenaSession
 	} from '$lib/webathena';
 	import { derived, writable } from 'svelte/store';
+	import Header from '$lib/Header.svelte';
 	import AboutDormspam from '$lib/AboutDormspam.svelte';
 	import JoinDormspamShell from '$lib/JoinDormspamShell.svelte';
+	import Footer from '$lib/Footer.svelte';
 
 	const webathena = writable<WebAthenaSession[] | null>(null);
 	setContext('webathena', webathena);
@@ -33,14 +35,18 @@
 	<title>Join dormspam</title>
 </svelte:head>
 
-<AboutDormspam />
+<Header />
 
-<p></p>
+<main>
+	<AboutDormspam />
 
-{#if $webathena === null}
-	<p>
-		<button id="login" onclick={login}>Login with Webathena</button>
-	</p>
-{:else}
-	<JoinDormspamShell />
-{/if}
+	{#if $webathena === null}
+		<p>
+			<button id="login" onclick={login}>Login with Webathena</button>
+		</p>
+	{:else}
+		<JoinDormspamShell />
+	{/if}
+</main>
+
+<Footer />

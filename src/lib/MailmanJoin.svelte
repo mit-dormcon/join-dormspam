@@ -67,7 +67,6 @@
 		<Error {error} />
 	{/await}
 {/if}
-<hr />
 <p>
 	You can also email {dormInfo.listName}-owner@mit.edu with any questions (such as help subscribing
 	or unsubscribing). The website <a href={mailmanLink} target="_blank">{mailmanLink}</a> should also
