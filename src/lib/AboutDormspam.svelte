@@ -1,5 +1,5 @@
 <details>
-	<summary> Click for frequently asked questions </summary>
+	<summary> Frequently asked questions </summary>
 
 	<strong>What is dormspam?</strong>
 	<ul>
