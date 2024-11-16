@@ -1,6 +1,7 @@
 // copied from moiraverse which is copied from matrix class group chats code
 
 import WinChan from 'winchan';
+import type { WebAthenaSession, WebAthenaResponse } from './types';
 
 const webathena_host = 'https://webathena.mit.edu';
 const realm = 'ATHENA.MIT.EDU';
@@ -8,45 +9,6 @@ const services = [
 	{ realm, principal: ['moira', 'moira7.mit.edu'] },
 	{ realm, principal: ['smtp', 'outgoing.mit.edu'] }
 ];
-
-export interface Response {
-	status: string;
-	sessions: WebAthenaSession[];
-}
-
-export interface WebAthenaSession {
-	authtime: number;
-	cname: {
-		nameString: string[];
-		nameType: number;
-	};
-	crealm: string;
-	endtime: string;
-	flags: number[];
-	key: {
-		keytype: number;
-		keyvalue: string;
-	};
-	sname: {
-		nameString: string[];
-		nameType: number;
-	};
-	srealm: string;
-	starttime: number;
-	ticket: {
-		encPart: {
-			cipher: string;
-			etype: number;
-			kvno: number;
-		};
-		realm: string;
-		sname: {
-			nameString: string[];
-			nameType: number;
-		};
-		tktVno: number;
-	};
-}
 
 /**
  * Logs in with WebAthena.
@@ -67,7 +29,7 @@ export function loginWebathena(): Promise<unknown> {
 			relay_url: `${webathena_host}/relay.html`,
 			params: { services }
 		},
-		function (err: string | undefined, r: Response) {
+		function (err: string | undefined, r: WebAthenaResponse) {
 			console.log('Webathena responded with', r);
 			if (err) {
 				console.error('There was a WebAthena error:', err);
