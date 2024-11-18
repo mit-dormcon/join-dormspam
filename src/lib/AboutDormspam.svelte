@@ -58,10 +58,3 @@
 		</li>
 	</ul>
 </details>
-
-<style>
-	#spam {
-		height: 100px;
-		vertical-align: middle;
-	}
-</style>
