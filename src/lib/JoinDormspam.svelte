@@ -19,7 +19,7 @@
 	let { lists }: Props = $props();
 
 	// TODO: for testing purposes, remove
-	// lists = [...lists, "gsc-clearance-hms-new-vassar"];
+	// lists = [...lists, 'gsc-clearance-hms-new-vassar'];
 
 	function getDorm(lists: string[]): Dorm | null {
 		const tapAccessLists = lists.filter((name) => name.startsWith('gsc-clearance-'));
@@ -34,6 +34,7 @@
 
 	let dormInfo: Dorm | null = $derived(getDorm(lists));
 	let correspondingDormspamList = $derived(dormInfo ? dormInfo.listName : '');
+	let checkedTOC = $state(false);
 
 	function isInList(listName: string): boolean {
 		return lists.includes(listName);
@@ -85,7 +86,6 @@
 			{:else}
 				other dorms:
 			{/if}
-			<!-- Svelte is nice, I forgot you could just add @html -->
 			{#each subscribedDormspamLists as list, i}
 				<code>{list}</code>{#if i < subscribedDormspamListsOtherDorms.length - 1},
 				{/if}
@@ -113,9 +113,23 @@
 				Since you are in <strong>{dormInfo.friendlyName}</strong>, to be on dormspam, you should
 				subscribe to <code>{dormInfo.listName}</code>.
 			</p>
-			<button id="subscribe" onclick={() => subscribe(dormInfo!.listName)}>
-				Subscribe me to {dormInfo.listName}
-			</button>
+			<form>
+				<p>
+					<label for="dormspam-toc">
+						<input
+							type="checkbox"
+							id="dormspam-toc"
+							name="dormspam-toc"
+							bind:checked={checkedTOC}
+						/>
+						I have read the dormspam FAQ above. I consent to receiving emails from
+						{dormInfo.listName}.
+					</label>
+				</p>
+				<button id="subscribe" disabled={!checkedTOC} onclick={() => subscribe(dormInfo.listName)}>
+					Subscribe me to {dormInfo.listName}
+				</button>
+			</form>
 		{/if}
 	{:else}
 		<!-- TODO: do we really need this separate branch? -->
@@ -132,9 +146,22 @@
 				Unsubscribe me from dormspam...
 			</button>
 		{:else}
-			<button id="subscribe" onclick={() => subscribe(commonDormspamList)}>
-				Subscribe me to dormspam!
-			</button>
+			<form>
+				<p>
+					<label for="dormspam-toc">
+						<input
+							type="checkbox"
+							id="dormspam-toc"
+							name="dormspam-toc"
+							bind:checked={checkedTOC}
+						/>
+						I have read the dormspam FAQ above. I consent to receiving emails from dormspam.
+					</label>
+				</p>
+				<button id="subscribe" disabled={!checkedTOC} onclick={() => subscribe(commonDormspamList)}>
+					Subscribe me to dormspam!
+				</button>
+			</form>
 		{/if}
 	{/if}
 {:else}

@@ -15,6 +15,7 @@
 
 	let { dormInfo }: Props = $props();
 	let mailmanLink = $derived('https://mailman.mit.edu/mailman/listinfo/' + dormInfo.listName);
+	let checkedTOC = $state(false);
 
 	const emailTicket = getContext<Readable<string>>('emailTicket');
 
@@ -31,9 +32,18 @@
 		You are in <strong>{dormInfo.friendlyName}</strong>. Click the button below to subscribe to
 		dormspam:
 	</p>
-	<button id="subscribe" onclick={() => subscribe(dormInfo.listName)}>
-		Subscribe me to {dormInfo.listName}
-	</button>
+	<form>
+		<p>
+			<label for="dormspam-toc">
+				<input type="checkbox" id="dormspam-toc" name="dormspam-toc" bind:checked={checkedTOC} />
+				I have read the dormspam FAQ above. I consent to receiving emails from
+				{dormInfo.listName}.
+			</label>
+		</p>
+		<button id="subscribe" disabled={!checkedTOC} onclick={() => subscribe(dormInfo.listName)}>
+			Subscribe me to {dormInfo.listName}
+		</button>
+	</form>
 {:else}
 	{#await currentPromise}
 		<p>Sending email to Mailman...</p>
@@ -68,7 +78,10 @@
 	{/await}
 {/if}
 <p>
-	You can also email {dormInfo.listName}-owner@mit.edu with any questions (such as help subscribing
-	or unsubscribing). The website <a href={mailmanLink} target="_blank">{mailmanLink}</a> should also
-	let you subscribe or unsubscribe directly.
+	You can also email <a href="mailto:{dormInfo.listName}-owner@mit.edu">
+		{dormInfo.listName}-owner@mit.edu
+	</a>
+	with any questions (such as help subscribing or unsubscribing). The website
+	<a href={mailmanLink} target="_blank">{mailmanLink}</a> should also let you subscribe or unsubscribe
+	directly.
 </p>
