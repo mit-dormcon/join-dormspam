@@ -18,7 +18,7 @@ const services = [
  */
 export function loginWebathena(): Promise<unknown> {
 	let resolve: (value: WebAthenaSession[]) => void;
-	let reject: (reason?: string) => void;
+	let reject: (reason: string | null) => void;
 	const promise = new Promise((resolver, rejecter) => {
 		resolve = resolver;
 		reject = rejecter;
@@ -29,15 +29,15 @@ export function loginWebathena(): Promise<unknown> {
 			relay_url: `${webathena_host}/relay.html`,
 			params: { services }
 		},
-		function (err: string | undefined, r: WebAthenaResponse) {
+		function (err: string | null, r: unknown) {
 			console.log('Webathena responded with', r);
 			if (err) {
 				console.error('There was a WebAthena error:', err);
 				reject(err);
-			} else if (r.status !== 'OK') {
+			} else if ((r as WebAthenaResponse).status !== 'OK') {
 				reject(err);
 			} else {
-				resolve(r.sessions);
+				resolve((r as WebAthenaResponse).sessions);
 			}
 		}
 	);
@@ -67,3 +67,5 @@ export function getUsername(webathena: WebAthenaSession[] | null) {
 	}
 	return webathena[0].cname.nameString[0];
 }
+
+export type { WebAthenaSession };
