@@ -1,4 +1,5 @@
 <script lang="ts">
+	/* eslint-disable svelte/no-navigation-without-resolve */
 	import { type Dorm } from '$lib/data';
 	import HowToDormspam from './HowToDormspam.svelte';
 
@@ -8,7 +9,7 @@
 
 	let { dormInfo }: Props = $props();
 
-	const requestList = dormInfo.listName + '-request@mit.edu';
+	const requestList = $derived(dormInfo.listName + '-request@mit.edu');
 
 	function getMailmanLink(listName: string): string {
 		return 'https://mailman.mit.edu/mailman/listinfo/' + listName;

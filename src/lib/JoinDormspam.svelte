@@ -86,7 +86,7 @@
 			{:else}
 				other dorms:
 			{/if}
-			{#each subscribedDormspamLists as list, i}
+			{#each subscribedDormspamLists as list, i (list)}
 				<code>{list}</code>{#if i < subscribedDormspamListsOtherDorms.length - 1},
 				{/if}
 			{/each}. You can unsubscribe from them using

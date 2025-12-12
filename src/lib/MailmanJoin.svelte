@@ -1,4 +1,6 @@
 <script lang="ts">
+	/* eslint-disable svelte/no-navigation-without-resolve */
+
 	import { type Dorm } from '$lib/data';
 	import Error from './Error.svelte';
 	import Loading from './Loading.svelte';

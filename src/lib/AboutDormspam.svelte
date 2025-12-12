@@ -16,9 +16,9 @@
 			<a href="https://mitadmissions.org/blogs/entry/mailing-list-culture/">long</a>
 			<a href="https://mitadmissions.org/blogs/entry/an_explanation/">history</a>
 			at MIT, and is a really important part of MIT culture! You can join for now if you want to figure
-			out what dormspam is all about, and so you don't miss out on anything, and if you decide later
-			that you want to filter it or stop receiving it altogether, that's okay too! You can come back
-			to this website if you want to unsubscribe!
+			out what dormspam is all about, and so you don't miss out on anything, and if you decide later that
+			you want to filter it or stop receiving it altogether, that's okay too! You can come back to this
+			website if you want to unsubscribe!
 		</li>
 	</ul>
 
@@ -40,8 +40,8 @@
 	<strong>How do I send emails to dormspam?</strong>
 	<ul>
 		<li>
-			<a href="https://how-to-dormspam.mit.edu">dormspam.mit.edu</a> is a great resource which tells
-			you all the norms for sending dormspam emails correctly, so people can filter properly!
+			<a href="https://how-to-dormspam.mit.edu">dormspam.mit.edu</a> is a great resource which tells you
+			all the norms for sending dormspam emails correctly, so people can filter properly!
 		</li>
 	</ul>
 
