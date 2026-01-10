@@ -1,49 +1,57 @@
-# Reference: https://github.com/mit-dormcon/website/blob/main/.github/workflows/deploy.yml
-
 name: Deploy to GitHub Pages
 
 on:
   push:
     branches:
-      - main
-  workflow_dispatch:
+      - 'main'
 
 jobs:
-  build:
-    name: Build Svelte
+  build_site:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # If you're using pnpm, add this step then change the commands and cache key below to use `pnpm`
+      # - name: Install pnpm
+      #   uses: pnpm/action-setup@v3
+      #   with:
+      #     version: 8
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
         with:
-          fetch-depth: 0
-      - uses: actions/setup-node@v4
-      - name: Install and Build
-        run: |
-          npm install
-          npm run build
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm i
+
+      - name: build
         env:
-          PUBLIC_MOIRA_API: 'https://moira-api.mit.edu'
-      - name: Upload Build Artifact
+          BASE_PATH: '/${{ github.event.repository.name }}'
+        run: |
+          npm run build
+
+      - name: Upload Artifacts
         uses: actions/upload-pages-artifact@v3
         with:
-          path: build
+          # this should match the `pages` option in your adapter-static options
+          path: 'build/'
 
   deploy:
-    name: Deploy to GitHub Pages
-    needs: build
+    needs: build_site
+    runs-on: ubuntu-latest
 
-    # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
     permissions:
-      pages: write # to deploy to Pages
-      id-token: write # to verify the deployment originates from an appropriate source
+      pages: write
+      id-token: write
 
-    # Deploy to the github-pages environment
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
 
-    runs-on: ubuntu-latest
     steps:
-      - name: Deploy to GitHub Pages
+      - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v4
