@@ -1,14 +1,13 @@
 <script lang="ts">
-	import { getContext } from 'svelte';
-	import type { Readable } from 'svelte/store';
+	import { getTicket, getUsername } from '$lib/context';
 	import Loading from '$lib/Loading.svelte';
 	import { getLists } from '$lib/moira';
 	import JoinDormspam from './JoinDormspam.svelte';
 
-	const ticket = getContext<Readable<string>>('ticket');
-	const username = getContext<Readable<string>>('username');
+	const ticket = getTicket();
+	const username = getUsername();
 
-	const listsPromise = getLists($ticket, $username);
+	const listsPromise = $ticket && $username ? getLists($ticket, $username) : Promise.resolve([]);
 </script>
 
 {#await listsPromise}

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import '$lib/simple.css';
-	import { setContext } from 'svelte';
+	import { setWebathena, setTicket, setEmailToken, setUsername } from '$lib/context';
 	import {
 		encodeEmailTicket,
 		encodeMoiraTicket,
@@ -15,16 +15,16 @@
 	import Footer from '$lib/Footer.svelte';
 
 	const webathena = writable<WebAthenaSession[] | null>(null);
-	setContext('webathena', webathena);
+	setWebathena(webathena);
 
 	const ticket = derived(webathena, encodeMoiraTicket);
-	setContext('ticket', ticket);
+	setTicket(ticket);
 
 	const emailTicket = derived(webathena, encodeEmailTicket);
-	setContext('emailTicket', emailTicket);
+	setEmailToken(emailTicket);
 
 	const username = derived(webathena, getUsername);
-	setContext('username', username);
+	setUsername(username);
 
 	async function login() {
 		$webathena = (await loginWebathena()) as WebAthenaSession[];

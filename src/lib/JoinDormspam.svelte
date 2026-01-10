@@ -1,16 +1,15 @@
 <script lang="ts">
 	import { dormspamLists, prefix, type Dorm, commonDormspamList, ListType } from '$lib/data';
-	import { getContext } from 'svelte';
+	import { getTicket, getUsername } from '$lib/context';
 	import Error from './Error.svelte';
 	import Loading from './Loading.svelte';
 	import { addUserToList, delUserFromList } from './moira';
 	import type { MoiraException } from './types';
-	import type { Readable } from 'svelte/store';
 	import HowToDormspam from './HowToDormspam.svelte';
 	import MailmanJoin from './MailmanJoin.svelte';
 
-	const ticket = getContext<Readable<string>>('ticket');
-	const username = getContext<Readable<string>>('username');
+	const ticket = getTicket();
+	const username = getUsername();
 
 	interface Props {
 		lists: string[];
@@ -51,12 +50,16 @@
 
 	/// Define the operations
 	function subscribe(listName: string) {
-		currentOperation = Operation.add;
-		currentPromise = addUserToList($ticket, listName, $username);
+		if ($ticket && $username) {
+			currentOperation = Operation.add;
+			currentPromise = addUserToList($ticket, listName, $username);
+		}
 	}
 	function unsubscribe(listName: string) {
-		currentOperation = Operation.remove;
-		currentPromise = delUserFromList($ticket, listName, $username);
+		if ($ticket && $username) {
+			currentOperation = Operation.remove;
+			currentPromise = delUserFromList($ticket, listName, $username);
+		}
 	}
 
 	function getSubscribedDormspamLists(lists: string[]) {
