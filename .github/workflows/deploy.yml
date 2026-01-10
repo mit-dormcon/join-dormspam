@@ -28,8 +28,9 @@ jobs:
         run: npm i
 
       - name: build
-        # env:
-        #   BASE_PATH: '/${{ github.event.repository.name }}''
+        env:
+          PUBLIC_MOIRA_API: 'https://moira-api.mit.edu'
+          # BASE_PATH: '/${{ github.event.repository.name }}'
         run: |
           npm run build
 
