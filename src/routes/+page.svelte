@@ -1,5 +1,4 @@
 <script lang="ts">
-	import '$lib/simple.css';
 	import { setWebathena, setTicket, setEmailToken, setUsername } from '$lib/context';
 	import {
 		encodeEmailTicket,
@@ -13,6 +12,8 @@
 	import AboutDormspam from '$lib/AboutDormspam.svelte';
 	import JoinDormspamShell from '$lib/JoinDormspamShell.svelte';
 	import Footer from '$lib/Footer.svelte';
+
+	import 'simpledotcss/simple.min.css';
 
 	const webathena = writable<WebAthenaSession[] | null>(null);
 	setWebathena(webathena);
