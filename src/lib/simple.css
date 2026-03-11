@@ -4,6 +4,7 @@
 	--sans-font:
 		-apple-system, BlinkMacSystemFont, 'Avenir Next', Avenir, 'Nimbus Sans L', Roboto, 'Noto Sans',
 		'Segoe UI', Arial, Helvetica, 'Helvetica Neue', sans-serif;
+	--serif-font: ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;
 	--mono-font: Consolas, Menlo, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
 	--standard-border-radius: 5px;
 	--border-width: 1px;
@@ -391,7 +392,7 @@ summary {
 	font-weight: bold;
 	padding: 0.7rem 1rem;
 	margin: -0.7rem -1rem;
-	word-break: break-all;
+	word-break: break-word;
 }
 
 details[open] > summary + * {
@@ -404,6 +405,10 @@ details[open] > summary {
 
 details[open] > :last-child {
 	margin-bottom: 0;
+}
+
+details h2:first-of-type {
+	margin-top: 0;
 }
 
 /* Format tables */
@@ -570,7 +575,7 @@ mark {
 }
 
 mark a {
-	color: #0d47a1;
+	color: var(--accent);
 }
 
 img,
@@ -697,6 +702,10 @@ dialog::backdrop {
 	opacity: 0.8;
 }
 
+dialog h2:first-of-type {
+	margin-top: 0;
+}
+
 @media only screen and (max-width: 720px) {
 	dialog {
 		max-width: calc(100vw - 2rem);
@@ -774,11 +783,7 @@ div.notice p:last-of-type {
 	mark {
 		border: var(--border-width) solid var(--border);
 	}
-	pre,
-	table,
-	figure,
-	img,
-	svg {
+	figure {
 		break-inside: avoid;
 	}
 	pre code {
