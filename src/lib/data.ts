@@ -92,7 +92,7 @@ export const dormspamLists: Map<string, Dorm> = new Map([
 		{
 			friendlyName: 'Random',
 			listName: 'random-hall-dormspam',
-			listType: ListType.moira
+			listType: ListType.mailman
 		}
 	],
 	[
@@ -109,7 +109,7 @@ export const dormspamLists: Map<string, Dorm> = new Map([
 // and to get the list of "requires approval to subscribe" lists
 
 /// Mailman lists that need no further action after requesting a subscription
-export const mailmanAutoSubscribe = ['sponge-talk'];
+export const mailmanAutoSubscribe = ['sponge-talk', 'random-hall-dormspam'];
 
 /// Mailman lists that require approval from a moderator either way
 // TODO: test all of them and see which ones require approval
