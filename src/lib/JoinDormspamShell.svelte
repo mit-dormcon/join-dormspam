@@ -3,6 +3,7 @@
 	import Loading from '$lib/Loading.svelte';
 	import { getLists } from '$lib/moira';
 	import JoinDormspam from './JoinDormspam.svelte';
+	import Error from './Error.svelte';
 
 	const ticket = getTicket();
 	const username = getUsername();
@@ -17,4 +18,6 @@
 	</p>
 {:then lists}
 	<JoinDormspam {lists} />
+{:catch error}
+	<Error {error} />
 {/await}
